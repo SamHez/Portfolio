@@ -1,13 +1,22 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { navigation } from "@/content/navigation";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { ScrollReveal } from "@/components/motion/ScrollReveal";
+function subscribeToScroll(callback: () => void) {
+  window.addEventListener("scroll", callback, { passive: true });
+  return () => window.removeEventListener("scroll", callback);
+}
 export function Header() {
   const pathname = usePathname();
+  const scrolled = useSyncExternalStore(
+    subscribeToScroll,
+    () => window.scrollY > 32,
+    () => false,
+  );
   const [open, setOpen] = useState(false);
   const trigger = useRef<HTMLButtonElement>(null);
   const panel = useRef<HTMLDivElement>(null);
@@ -49,7 +58,9 @@ export function Header() {
     };
   }, [open]);
   return (
-    <header className="site-header">
+    <header
+      className={`site-header${scrolled ? " is-scrolled" : ""}${pathname !== "/" ? " is-interior" : ""}`}
+    >
       <ScrollReveal entrance className="container header-inner">
         <Link
           data-reveal

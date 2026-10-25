@@ -1,6 +1,6 @@
 # Samuel Epodoi · Portfolio 2.0
 
-Phase 1: Next.js App Router foundation, monochrome cinematic hero, accessible navigation, and system/light/dark themes. Future content remains intentionally minimal.
+Phases 1–2: Next.js App Router foundation, monochrome cinematic hero, accessible navigation, persistent themes, and the complete editorial homepage. Dedicated pages remain minimal until Phase 3. See [the Phase 2 report](docs/PHASE-2.md) for content evidence, withheld records, missing assets and verification results.
 
 ## Develop
 
@@ -23,7 +23,7 @@ npm start
 ## Structure
 
 - `src/app`: server-rendered routes, metadata, optimized fonts, global design tokens.
-- `src/content`: verified profile copy, social links, navigation and hero media configuration.
+- `src/content`: profile, navigation, media, typed project publication gates, approved capabilities and sourced recognition records.
 - `src/components/layout`: shared header, keyboard-accessible mobile dialog, footer.
 - `src/components/sections`: hero composition and conditional browser video loading.
 - `src/components/ui`: buttons, container, section heading, theme control.
@@ -44,7 +44,7 @@ This is a standard Next.js application compatible with Netlify's Next.js adapter
 
 ## Media and accessibility
 
-Desktop video is muted, inline and looping. It receives no `src` on screens narrower than 1024px, with reduced motion, Save-Data, or a 2G connection. A static poster remains visible if loading or playback fails. Visitors can pause motion. All video frames use CSS grayscale; the poster is monochrome too. System theme is the default, with the toggle cycling through light, dark and system. `next-themes` applies the saved choice before hydration. GSAP runs only without reduced motion and leaves server-rendered content visible without animation.
+Desktop video is muted and inline, playing a brief ambient introduction before settling on a still frame. It receives no `src` on screens narrower than 1024px, with reduced motion, Save-Data, or a 2G connection. A static poster remains visible if loading or playback fails. The visible motion control was removed in the homepage refinements; automatic motion stops within five seconds. All video frames use CSS grayscale; the poster is monochrome too. System theme is the default, with the toggle cycling through light, dark and system. `next-themes` applies the saved choice before hydration. GSAP runs only without reduced motion and leaves server-rendered content visible without animation.
 
 ## Next phase
 

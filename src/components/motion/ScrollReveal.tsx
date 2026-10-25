@@ -17,23 +17,64 @@ export function ScrollReveal({
     const media = gsap.matchMedia();
     media.add("(prefers-reduced-motion: no-preference)", () => {
       const context = gsap.context(() => {
-        gsap.from("[data-reveal]", {
-          y: entrance ? 20 : 28,
-          opacity: 0,
-          duration: 0.9,
-          stagger: 0.11,
-          ease: "power3.out",
-          clearProps: "all",
-          ...(entrance
-            ? {}
-            : {
+        if (entrance) {
+          gsap.from("[data-reveal]", {
+            y: 20,
+            opacity: 0,
+            duration: 0.9,
+            stagger: 0.11,
+            ease: "power3.out",
+            clearProps: "all",
+          });
+        } else {
+          gsap.utils
+            .toArray<HTMLElement>("[data-reveal]", root.current)
+            .forEach((element) => {
+              gsap.from(element, {
+                y: 28,
+                opacity: 0,
+                duration: 0.8,
+                ease: "power3.out",
+                clearProps: "all",
                 scrollTrigger: {
-                  trigger: root.current,
-                  start: "top 90%",
+                  trigger: element,
+                  start: "top 94%",
                   once: true,
                 },
-              }),
-        });
+              });
+            });
+          gsap.utils
+            .toArray<HTMLElement>("[data-line]", root.current)
+            .forEach((element) => {
+              gsap.from(element, {
+                scaleX: 0,
+                transformOrigin: "left",
+                duration: 1.1,
+                ease: "power2.out",
+                clearProps: "all",
+                scrollTrigger: {
+                  trigger: element,
+                  start: "top 95%",
+                  once: true,
+                },
+              });
+            });
+          gsap.utils
+            .toArray<HTMLElement>("[data-image-reveal]", root.current)
+            .forEach((element) => {
+              gsap.from(element, {
+                clipPath: "inset(0 0 12% 0)",
+                duration: 1.1,
+                ease: "power2.out",
+                clearProps: "all",
+                scrollTrigger: {
+                  trigger: element,
+                  start: "top 92%",
+                  once: true,
+                },
+              });
+            });
+        }
       }, root);
       return () => context.revert();
     });

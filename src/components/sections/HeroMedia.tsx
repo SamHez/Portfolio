@@ -1,11 +1,9 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { Pause, Play } from "lucide-react";
 import { heroMedia } from "@/content/profile";
 export function HeroMedia() {
   const video = useRef<HTMLVideoElement>(null);
   const [ready, setReady] = useState(false);
-  const [paused, setPaused] = useState(false);
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     const desktop = window.matchMedia("(min-width: 1024px)");
@@ -46,19 +44,6 @@ export function HeroMedia() {
       element.load();
     };
   }, []);
-  function toggle() {
-    const element = video.current;
-    if (!element) return;
-    if (element.paused) {
-      element
-        .play()
-        .then(() => setPaused(false))
-        .catch(() => {});
-    } else {
-      element.pause();
-      setPaused(true);
-    }
-  }
   return (
     <>
       <div className="hero-media" aria-hidden="true">
@@ -67,13 +52,14 @@ export function HeroMedia() {
           ref={video}
           autoPlay
           muted
-          loop
           playsInline
           preload="none"
           poster={heroMedia.poster}
           onPlaying={() => {
             setReady(true);
-            setPaused(false);
+          }}
+          onTimeUpdate={(event) => {
+            if (event.currentTarget.currentTime >= 4.5) event.currentTarget.pause();
           }}
           onError={() => setReady(false)}
           onEmptied={() => setReady(false)}
@@ -82,18 +68,6 @@ export function HeroMedia() {
         <div className="hero-overlay" />
         <div className="hero-grain" />
       </div>
-      {ready && (
-        <button
-          className="video-toggle mono"
-          onClick={toggle}
-          aria-label={
-            paused ? "Play background video" : "Pause background video"
-          }
-        >
-          {paused ? <Play size={12} /> : <Pause size={12} />}
-          <span>Motion {paused ? "off" : "on"}</span>
-        </button>
-      )}
     </>
   );
 }
