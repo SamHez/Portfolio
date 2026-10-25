@@ -1,0 +1,12 @@
+node_modules/
+.next/
+out/
+.DS_Store
+.env*
+!.env.example
+.migration/
+*.tsbuildinfo
+playwright-report/
+test-results/
+
+.npm-cache/

@@ -1,0 +1,9 @@
+# Reference only. Activate in the repository root when deployment is authorized.
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"
+# Netlify detects Next.js and installs its supported adapter automatically.
+# Keep App Router output in standard Next.js mode; do not set output = "export".
