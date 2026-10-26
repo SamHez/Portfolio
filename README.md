@@ -47,4 +47,3 @@ All project details currently remain excluded from search indexing. Project name
 - [Project content checklist](docs/CONTENT.md): missing briefs, URLs and supplied media.
 - [Third-party licenses](docs/licenses/): required React Bits and Simple Icons notices.
 
-Continue in this repository. Do not commit, push, deploy or change external services without authorization.
