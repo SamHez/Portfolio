@@ -1,22 +1,14 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Menu, X, ArrowUpRight, ArrowRight } from "lucide-react";
+import { useScrollThreshold } from "@/lib/useScrollThreshold";
 import { navigation } from "@/content/navigation";
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { ScrollReveal } from "@/components/motion/ScrollReveal";
-function subscribeToScroll(callback: () => void) {
-  window.addEventListener("scroll", callback, { passive: true });
-  return () => window.removeEventListener("scroll", callback);
-}
 export function Header() {
   const pathname = usePathname();
-  const scrolled = useSyncExternalStore(
-    subscribeToScroll,
-    () => window.scrollY > 32,
-    () => false,
-  );
+  const scrolled = useScrollThreshold(32);
   const [open, setOpen] = useState(false);
   const trigger = useRef<HTMLButtonElement>(null);
   const panel = useRef<HTMLDivElement>(null);
@@ -45,7 +37,7 @@ export function Header() {
         }
       }
     }
-    const wide = window.matchMedia("(min-width: 801px)");
+    const wide = window.matchMedia("(min-width: 961px)");
     const resize = () => {
       if (wide.matches) close();
     };
@@ -59,20 +51,22 @@ export function Header() {
   }, [open]);
   return (
     <header
-      className={`site-header${scrolled ? " is-scrolled" : ""}${pathname !== "/" ? " is-interior" : ""}`}
+      className={`site-header ${scrolled ? "is-glass is-scrolled" : "is-transparent"}`}
     >
       <ScrollReveal entrance className="container header-inner">
         <Link
+          prefetch={false}
           data-reveal
           href="/"
           className="brand"
-          aria-label="Samuel Epodoi, home"
+          aria-label="SE. — Samuel Epodoi, home"
         >
           SE<span>.</span>
         </Link>
         <nav data-reveal className="desktop-nav" aria-label="Main navigation">
-          {navigation.slice(0, 4).map((item) => (
+          {navigation.map((item) => (
             <Link
+              prefetch={false}
               key={item.href}
               href={item.href}
               aria-current={pathname === item.href ? "page" : undefined}
@@ -82,13 +76,13 @@ export function Header() {
           ))}
         </nav>
         <div data-reveal className="header-actions">
-          <ThemeToggle />
           <Link
+            prefetch={false}
             className="contact-link"
             href="/contact"
             aria-current={pathname === "/contact" ? "page" : undefined}
           >
-            Contact <ArrowUpRight size={15} />
+            Get in Touch <ArrowRight size={15} aria-hidden="true" />
           </Link>
           <button
             ref={trigger}
@@ -128,13 +122,14 @@ export function Header() {
           <nav aria-label="Mobile navigation">
             {navigation.map((item) => (
               <Link
+                prefetch={false}
                 key={item.href}
                 href={item.href}
                 aria-current={pathname === item.href ? "page" : undefined}
                 onClick={() => setOpen(false)}
               >
                 <span className="mono">{item.number}</span>
-                {item.label}
+                <span className="nav-label">{item.label}</span>
                 <ArrowUpRight size={24} />
               </Link>
             ))}

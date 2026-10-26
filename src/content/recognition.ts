@@ -15,6 +15,8 @@ export interface Recognition {
 export const recognition: readonly Recognition[] = [
   {
     id: "rubyconf",
+    image: "/images/recognition/rubyconf-kenya-2018.jpg",
+    imageAlt: "Samuel speaking at the RubyConf Kenya conference in 2018.",
     title: "RubyConf Kenya",
     date: "2018-06-28",
     category: "Public Speaking / Developer Community",
@@ -25,7 +27,7 @@ export const recognition: readonly Recognition[] = [
     featured: true,
     verified: true,
     evidence:
-      "User-supplied speaking history, corroborated by the embedded post and date in legacy index.html at 0fa3724. Original photograph not present.",
+      "User-supplied speaking history, corroborated by the embedded post and date in legacy index.html at 0fa3724. Authentic conference photograph supplied by the user.",
   },
   {
     id: "bitature",
@@ -42,18 +44,35 @@ export const recognition: readonly Recognition[] = [
       "User-approved description, corroborated by the embedded acknowledgment and date in legacy index.html at 0fa3724.",
   },
   {
-    id: "innovation-village",
-    title: "Innovation Village / StartupDigest Africa",
-    date: "2018-04-09",
-    category: "Community Recognition / Media Coverage",
+    id: "outbox",
+    title: "Outbox Hub / Richard Zulu",
+    date: "2018-01-26",
+    category: "Developer Community / Recognition",
     description:
-      "Featured for an early interest in technology, independent learning and software development.",
-    sourceTitle: "Coverage reference · Innovation Village",
-    sourceUrl: "https://twitter.com/InnovationVilla/status/983278463577739264",
+      "Recognition by Richard Zulu for participating in the Connect Kampala hackathon and Outbox Hub’s technical workshops at age 13.",
+    sourceTitle: "Original post · Richard Zulu / Outbox Hub",
+    sourceUrl: "https://x.com/richardzulu/status/956923823118483457",
     featured: false,
     verified: true,
     evidence:
-      "Exact source URL and embedded text naming StartupDigest recovered from legacy index.html at 0fa3724. Original article URL not verified.",
+      "User-supplied Richard Zulu post, verified through the official X embed. The post identifies Sam as a 13-year-old participant in the Connect Kampala hackathon and Outbox Hub technical workshops.",
   },
 ];
 export const verifiedRecognition = recognition.filter((item) => item.verified);
+
+export const communityPhotography = [
+  {
+    image: "/images/recognition/developer-community-session.jpg",
+    alt: "Samuel attending a developer community session alongside other participants.",
+    caption: "DEVELOPER COMMUNITY / SHARED IDEAS",
+    width: 1200,
+    height: 900,
+  },
+  {
+    image: "/images/recognition/hands-on-coding-session.jpg",
+    alt: "Samuel working on a laptop during a hands-on coding session.",
+    caption: "HANDS-ON LEARNING / WORKING TOGETHER",
+    width: 1200,
+    height: 800,
+  },
+] as const;

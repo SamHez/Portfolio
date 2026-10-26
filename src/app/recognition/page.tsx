@@ -1,28 +1,20 @@
-import type { Metadata } from "next";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Button } from "@/components/ui/Button";
-export const metadata: Metadata = {
-  title: "Recognition",
-  alternates: { canonical: "/recognition" },
-};
-export default function Page() {
+import { pageMetadata } from "@/lib/seo";
+import { StructuredData } from "@/components/ui/StructuredData";
+import { ContactCTA } from "@/components/sections/ContactCTA";
+import { PageHero } from "@/components/layout/PageHero";
+import { RecognitionPreview } from "@/components/sections/RecognitionPreview";
+export const metadata = pageMetadata("/recognition");
+export default function Recognition() {
   return (
-    <section className="placeholder-page container">
-      <SectionHeading
-        label="05 / RECOGNITION & LEADERSHIP"
-        title="Initiative. With impact."
+    <>
+      <StructuredData path="/recognition" />
+      <PageHero
+        eyebrow="EXPERIENCES / COMMUNITY"
+        title="RECOGNITION / LEADERSHIP"
+        description="A collection of experiences, conversations and moments that have helped shape my professional journey."
       />
-      <p className="page-intro">
-        A space for verified recognition, leadership, and contributions. The
-        full story is coming soon.
-      </p>
-      <div className="page-actions">
-        <Button href="/contact">Start a conversation</Button>
-        <Button href="/" secondary>
-          Back to home
-        </Button>
-      </div>
-      <p className="mono page-footnote">MORE TO COME / PORTFOLIO 2.0</p>
-    </section>
+      <RecognitionPreview detail />
+      <ContactCTA />
+    </>
   );
 }

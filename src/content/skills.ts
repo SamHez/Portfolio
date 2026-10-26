@@ -2,6 +2,8 @@ export interface Capability {
   name: string;
   approved: boolean;
   evidence?: string;
+  icon?: string;
+  monogram?: string;
 }
 export interface SkillGroup {
   id: string;
@@ -10,87 +12,50 @@ export interface SkillGroup {
   description: string;
   skills: readonly Capability[];
 }
-const confirmed = (name: string, evidence: string): Capability => ({
+const skill = (name: string, icon?: string, monogram?: string): Capability => ({
   name,
+  icon,
+  monogram,
   approved: true,
-  evidence,
+  evidence: "User-approved expertise and tools for the portfolio refinement.",
 });
-const pending = (name: string): Capability => ({ name, approved: false });
 export const skillGroups: readonly SkillGroup[] = [
   {
-    id: "frontend",
+    id: "engineering",
     number: "01",
-    title: "Frontend Engineering",
-    description: "Clear interfaces. Considered implementation.",
+    title: "Software Engineering",
+    description: "Responsive interfaces and the systems behind them.",
     skills: [
-      ...[
-        "React",
-        "Next.js",
-        "TypeScript",
-        "JavaScript",
-        "HTML / CSS",
-        "Responsive Interfaces",
-        "UI Architecture",
-      ].map((name) =>
-        confirmed(name, "Implemented in this portfolio’s App Router frontend."),
-      ),
-    ],
-  },
-  {
-    id: "application",
-    number: "02",
-    title: "Backend & Application Development",
-    description: "Structure that makes room for what comes next.",
-    skills: [
-      confirmed(
-        "Application Architecture",
-        "Typed content models, modular server/client boundaries and reusable components in this repository.",
-      ),
-      ...[
-        "Node.js",
-        "Python",
-        "PHP / Laravel",
-        "REST API Integration",
-        "Relational Databases",
-      ].map(pending),
+      skill("React", "react"),
+      skill("JavaScript", "javascript"),
+      skill("PHP / Laravel", "laravel"),
+      skill("Python / Django & Flask", "python"),
+      skill("Node.js", "nodedotjs"),
     ],
   },
   {
     id: "design",
-    number: "03",
+    number: "02",
     title: "Product & Interface Design",
-    description: "Making complexity feel intuitive.",
+    description: "From the first idea to an intuitive experience.",
     skills: [
-      ...[
-        "Interface Design",
-        "Design Systems",
-        "Accessibility",
-        "Interaction Design",
-      ].map((name) =>
-        confirmed(
-          name,
-          "Responsive theme tokens, semantic components, keyboard navigation and reduced-motion support in this portfolio.",
-        ),
-      ),
-      pending("User Experience"),
-      pending("Prototyping"),
+      skill("Figma", "figma"),
+      skill("Interface Design", undefined, "UI"),
+      skill("User Experience", undefined, "UX"),
+      skill("Design Systems", undefined, "DS"),
+      skill("Prototyping", undefined, "PR"),
     ],
   },
   {
-    id: "delivery",
-    number: "04",
-    title: "Engineering & Delivery",
-    description: "Care in the details, from source to screen.",
+    id: "creative",
+    number: "03",
+    title: "Motion & Graphic Design",
+    description: "Visual identities, compelling stories and movement.",
     skills: [
-      confirmed("Git / GitHub", "Existing versioned portfolio repository."),
-      confirmed(
-        "Performance Optimization",
-        "Conditional video loading, optimized fonts and responsive image sizes.",
-      ),
-      pending("Deployment Workflows"),
-      pending("Cloud Infrastructure"),
-      pending("Technical Problem Solving"),
-      pending("Cross-functional Collaboration"),
+      skill("Photoshop", undefined, "Ps"),
+      skill("Illustrator", undefined, "Ai"),
+      skill("Premiere Pro", undefined, "Pr"),
+      skill("After Effects", undefined, "Ae"),
     ],
   },
 ];

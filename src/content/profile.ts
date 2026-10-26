@@ -1,12 +1,13 @@
 export const profile = {
   name: "Samuel Epodoi",
   role: "Software Engineer",
-  title: "Samuel Epodoi | Software Engineer & Full-Stack Developer",
+  title: "Samuel Epodoi | Software Engineer & Creative Technologist",
   description:
-    "Explore the work of Samuel Epodoi, a software engineer and creative technologist building thoughtful digital products and scalable web experiences.",
+    "Explore the work of Samuel Epodoi, a software engineer and creative technologist building thoughtful digital products and modern web experiences.",
   introduction:
-    "I build thoughtful software and digital products, combining engineering, design, and an entrepreneurial approach to solving meaningful problems.",
+    "I build thoughtful digital products that help businesses work smarter, grow confidently and connect with people around the world.",
   email: "samuelepodoi@gmail.com",
+  phone: "+256754377715",
   url: "https://samhez.tech",
   github: "https://github.com/SamHez/",
   linkedin: "https://www.linkedin.com/in/samuel-epodoi-a4106523b/",

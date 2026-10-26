@@ -1,0 +1,13 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Netlify automatically supplies the current OpenNext adapter. Do not pin a plugin.
+[context.deploy-preview.environment]
+  SITE_NOINDEX = "true"
+
+[context.branch-deploy.environment]
+  SITE_NOINDEX = "true"

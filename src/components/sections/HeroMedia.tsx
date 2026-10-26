@@ -59,7 +59,8 @@ export function HeroMedia() {
             setReady(true);
           }}
           onTimeUpdate={(event) => {
-            if (event.currentTarget.currentTime >= 4.5) event.currentTarget.pause();
+            if (event.currentTarget.currentTime >= 4.5)
+              event.currentTarget.pause();
           }}
           onError={() => setReady(false)}
           onEmptied={() => setReady(false)}

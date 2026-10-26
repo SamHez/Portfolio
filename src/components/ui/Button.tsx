@@ -11,6 +11,7 @@ export function Button({
 }) {
   return (
     <Link
+      prefetch={false}
       href={href}
       className={`button ${secondary ? "button-secondary" : "button-primary"}`}
     >
