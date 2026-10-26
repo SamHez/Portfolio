@@ -27,7 +27,7 @@ Grammarly can add `data-new-gr-c-s-check-loaded` and `data-gr-ext-installed` to 
 
 ## Deployment and environment
 
-Use the existing Netlify project and root `netlify.toml`: repository root, `npm run build`, publish `.next`, Node 22. Netlify selects its Next/OpenNext adapter automatically; do not pin an adapter. The duplicate example configuration was removed.
+Use the existing Netlify project and root `netlify.toml`: repository root, `npm run build`, publish `.next`, Node 22. The file explicitly enables the unversioned `@netlify/plugin-nextjs` adapter and sets `NETLIFY_NEXT_PLUGIN_SKIP=false`. This migrated site was observed publishing raw `.next` files without application routing: `/BUILD_ID` and `/server/app/index.html` returned 200 while `/` returned Netlify’s default 404. Explicit adapter activation avoids relying on the old site’s framework detection; do not pin an adapter version in package.json. The duplicate example configuration was removed.
 
 | Build variable               | Use                                                                                                                                                                |
 | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -38,6 +38,8 @@ Use the existing Netlify project and root `netlify.toml`: repository root, `npm 
 | `NEXT_PUBLIC_EMAILJS_*`      | Dormant public identifiers. Not needed for direct-contact links.                                                                                                   |
 
 No server secret is required. Keep `.env.local` ignored; never expose private credentials through `NEXT_PUBLIC_*`.
+
+For the next authorized deployment, ensure the production branch is `main`, the base directory is the repository root, and deploy the commit containing this configuration. Retry with a cleared build cache. The build log must show `npm run build` and the Next.js/OpenNext adapter processing output, including server functions and routing; “Site is live” alone only confirms that files were published. Check that no site environment or context overrides disable the adapter. Do not add a SPA rewrite to `/index.html` or publish `.next/server/app` directly.
 
 After deployment authorization, validate the real adapter/runtime, Image CDN, logs and headers. Confirm `samhez.tech` is primary, `www.samhez.tech` is its alias, and the platform enforces HTTPS with a valid certificate. Check HTTP/HTTPS and www/non-www redirect chains for loops. Application redirects for www and `/index.html` were verified locally; actual DNS/TLS/CDN behavior remains pending.
 

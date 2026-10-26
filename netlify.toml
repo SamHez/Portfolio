@@ -4,8 +4,14 @@
 
 [build.environment]
   NODE_VERSION = "22"
+  # Override any legacy setting that disabled the Next.js runtime.
+  NETLIFY_NEXT_PLUGIN_SKIP = "false"
 
-# Netlify automatically supplies the current OpenNext adapter. Do not pin a plugin.
+# Explicitly activate the adapter for this site migrated from a static portfolio.
+# Keep it unversioned so Netlify can install the current compatible runtime.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
 [context.deploy-preview.environment]
   SITE_NOINDEX = "true"
 
