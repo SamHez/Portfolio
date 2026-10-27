@@ -55,7 +55,6 @@ export function Header() {
     >
       <ScrollReveal entrance className="container header-inner">
         <Link
-          prefetch={false}
           data-reveal
           href="/"
           className="brand"
@@ -66,7 +65,6 @@ export function Header() {
         <nav data-reveal className="desktop-nav" aria-label="Main navigation">
           {navigation.map((item) => (
             <Link
-              prefetch={false}
               key={item.href}
               href={item.href}
               aria-current={pathname === item.href ? "page" : undefined}
@@ -77,7 +75,6 @@ export function Header() {
         </nav>
         <div data-reveal className="header-actions">
           <Link
-            prefetch={false}
             className="contact-link"
             href="/contact"
             aria-current={pathname === "/contact" ? "page" : undefined}
@@ -122,7 +119,6 @@ export function Header() {
           <nav aria-label="Mobile navigation">
             {navigation.map((item) => (
               <Link
-                prefetch={false}
                 key={item.href}
                 href={item.href}
                 aria-current={pathname === item.href ? "page" : undefined}

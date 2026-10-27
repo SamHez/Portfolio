@@ -2,7 +2,9 @@
 import { useEffect, useRef } from "react";
 import { useDeferredFrame } from "@/lib/use-deferred-frame";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRouter } from "next/navigation";
 export function ProjectShowcase({ rows = 1 }: { rows?: 1 | 2 }) {
+  const router = useRouter();
   const frame = useRef<HTMLIFrameElement>(null);
   const { ready, activate } = useDeferredFrame(frame);
   const src = rows === 2 ? "/work/collection" : "/work/preview";
@@ -14,10 +16,20 @@ export function ProjectShowcase({ rows = 1 }: { rows?: 1 | 2 }) {
     const resize = (event: MessageEvent) => {
       if (
         event.origin !== window.location.origin ||
-        event.source !== frame.current?.contentWindow ||
-        event.data?.type !== "portfolio-project-height"
+        event.source !== frame.current?.contentWindow
       )
         return;
+      const { type, href } = event.data || {};
+      // Only this frame may request navigation to known, same-origin work paths.
+      if (
+        typeof href === "string" &&
+        /^\/work(?:\/project-\d{2})?$/.test(href)
+      ) {
+        if (type === "portfolio-project-prefetch") router.prefetch(href);
+        if (type === "portfolio-project-navigate") router.push(href);
+        return;
+      }
+      if (type !== "portfolio-project-height") return;
       const height = Number(event.data.height);
       if (
         Number.isFinite(height) &&
@@ -38,7 +50,7 @@ export function ProjectShowcase({ rows = 1 }: { rows?: 1 | 2 }) {
       window.location.origin,
     );
     return () => window.removeEventListener("message", resize);
-  }, []);
+  }, [router]);
   return (
     <>
       <iframe

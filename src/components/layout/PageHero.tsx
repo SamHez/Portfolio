@@ -28,10 +28,13 @@ export function PageHero({
     >
       <HeroBackground variant={background} />
       <Container>
-        <ScrollReveal entrance className="page-hero-content">
+        <ScrollReveal
+          entrance
+          entranceDuration={0.45}
+          className="page-hero-content"
+        >
           {breadcrumb && (
             <Link
-              prefetch={false}
               data-reveal
               className="hero-breadcrumb mono"
               href={breadcrumb.href}

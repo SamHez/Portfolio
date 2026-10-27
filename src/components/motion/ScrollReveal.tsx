@@ -6,10 +6,12 @@ export function ScrollReveal({
   children,
   className = "",
   entrance = false,
+  entranceDuration = 0.9,
 }: {
   children: React.ReactNode;
   className?: string;
   entrance?: boolean;
+  entranceDuration?: number;
 }) {
   const root = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -26,8 +28,8 @@ export function ScrollReveal({
             gsap.from("[data-reveal]", {
               y: 20,
               opacity: 0,
-              duration: 0.9,
-              stagger: 0.11,
+              duration: entranceDuration,
+              stagger: entranceDuration * 0.12,
               ease: "power3.out",
               clearProps: "all",
             });
@@ -103,7 +105,7 @@ export function ScrollReveal({
       observer.disconnect();
       dispose();
     };
-  }, [entrance]);
+  }, [entrance, entranceDuration]);
   return (
     <div ref={root} className={className}>
       {children}

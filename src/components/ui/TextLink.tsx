@@ -15,7 +15,7 @@ export function TextLink({
 }) {
   return (
     <Link
-      prefetch={false}
+      prefetch={external || target === "_top" ? false : undefined}
       href={href}
       className="text-link"
       target={target}

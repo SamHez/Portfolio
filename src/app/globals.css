@@ -3863,7 +3863,7 @@ body:has(.embedded-projects) .scroll-to-top {
     gap: 14px;
   }
   .hero-heading {
-    font-size: clamp(23px, 4.4vw, 36px);
+    font-size: 36px;
   }
   .hero-content {
     padding-top: 130px;
@@ -3974,7 +3974,7 @@ body:has(.embedded-projects) .scroll-to-top {
     padding-bottom: 65px;
   }
   .hero-heading {
-    font-size: clamp(18px, 4.7vw, 26px);
+    font-size: clamp(25px, 7.7vw, 36px);
     padding-top: 30px;
     padding-bottom: 25px;
     letter-spacing: -0.06em;
@@ -4520,7 +4520,12 @@ body:has(.embedded-projects) .scroll-to-top {
   margin-bottom: 20px;
 }
 .wordmark-window {
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  touch-action: pan-y;
+  cursor: grab;
+  user-select: none;
   mask-image: linear-gradient(
     90deg,
     transparent,
@@ -4532,7 +4537,7 @@ body:has(.embedded-projects) .scroll-to-top {
 .wordmark-track {
   display: flex;
   width: max-content;
-  animation: project-wordmarks 38s linear infinite;
+  /* Native scrolling is advanced by ClientLogoMarquee for seamless dragging. */
 }
 .wordmark-track > div {
   display: flex;
@@ -4547,15 +4552,6 @@ body:has(.embedded-projects) .scroll-to-top {
   letter-spacing: -0.04em;
   font-size: 20px;
   line-height: 1.15;
-}
-.wordmark-track[data-paused="true"],
-.wordmark-window:hover .wordmark-track {
-  animation-play-state: paused;
-}
-@keyframes project-wordmarks {
-  to {
-    transform: translateX(-50%);
-  }
 }
 .about-introduction {
   grid-template-columns: 280px minmax(0, 1fr);
@@ -4896,10 +4892,6 @@ body:has(.embedded-projects) .scroll-to-top {
   height: 42px;
   object-fit: contain;
   flex-shrink: 0;
-}
-
-.wordmark-window:focus-within .wordmark-track {
-  animation-play-state: paused;
 }
 
 /* GradientWaves trial and simplified page composition. */
@@ -5490,9 +5482,6 @@ body:has(.embedded-projects) {
 }
 .client-logo-strip .wordmark-window {
   padding: 4px 0;
-}
-.client-logo-strip .wordmark-track {
-  animation-duration: 48s;
 }
 .client-logo-strip .wordmark-track > div {
   gap: 24px;
@@ -6280,4 +6269,14 @@ body:has(.embedded-projects) {
   border-radius: 8px;
   padding: 10px 12px;
   font-size: 10px;
+}
+
+.wordmark-window::-webkit-scrollbar {
+  display: none;
+}
+.wordmark-window[data-dragging="true"] {
+  cursor: grabbing;
+}
+.wordmark-track img {
+  -webkit-user-drag: none;
 }
